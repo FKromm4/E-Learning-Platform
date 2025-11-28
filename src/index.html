@@ -1,118 +1,120 @@
-
 <!DOCTYPE html>
 <html lang="el">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Αρχική | E-Learning</title>
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/theme.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
-    <link rel="stylesheet" href="assets/css/components.css">
-  </head>
-  <body data-page="home">
-    <!-- Header / Nav -->
-    <header class="site-header">
-      <div class="container header-inner">
-        <a href="index.html" class="logo">
-          <img src="assets/img/logo.png" alt="E-Learning Logo">
-          <span class="logo-text">E-Learning</span>
-        </a>
 
-        <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">
-          ☰
-          <span class="visually-hidden">Άνοιγμα μενού</span>
-        </button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Αρχική | E-Learning</title>
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/theme.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
 
-        <nav id="main-nav" class="main-nav" aria-label="Κύρια πλοήγηση">
-          <ul>
-            <li><a href="index.html" class="active">Αρχική</a></li>
-            <li><a href="courses.html">Μαθήματα</a></li>
-            <li><a href="books.html">Βιβλία</a></li>
-            <li><a href="about.html">Ποιοι είμαστε</a></li>
-            <li><a href="register.html" class="btn btn-primary">Εγγραφή</a></li>
-          </ul>
-        </nav>
+<body data-page="home">
+  <!-- Header / Nav -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo.png" alt="E-Learning Logo">
+        <span class="logo-text">E-Learning</span>
+      </a>
+
+      <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">
+        ☰
+        <span class="visually-hidden">Άνοιγμα μενού</span>
+      </button>
+
+      <nav id="main-nav" class="main-nav" aria-label="Κύρια πλοήγηση">
+        <ul>
+          <li><a href="index.html" class="active">Αρχική</a></li>
+          <li><a href="courses.html">Μαθήματα</a></li>
+          <li><a href="books.html">Βιβλία</a></li>
+          <li><a href="about.html">Ποιοι είμαστε</a></li>
+          <li><a href="login.html" class="btn btn-primary">Σύνδεση</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero / Banner -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1>Η πλατφόρμα e-learning για την Πληροφορική</h1>
+          <p>
+            Μαθήματα προγραμματισμού, δικτύων, ασφάλειας και βάσεων δεδομένων,
+            σχεδιασμένα για φοιτητές και επαγγελματίες.
+          </p>
+          <a href="register.html" class="btn btn-primary">Ξεκίνα τώρα</a>
+        </div>
+        <div class="hero-image">
+          <img src="assets/img/banner.jpg" alt="Φοιτητές που παρακολουθούν μάθημα online">
+        </div>
       </div>
-    </header>
+    </section>
 
-    <main>
-      <!-- Hero / Banner -->
-      <section class="hero">
-        <div class="container hero-inner">
-          <div class="hero-text">
-            <h1>Η πλατφόρμα e-learning για την Πληροφορική</h1>
-            <p>
-              Μαθήματα προγραμματισμού, δικτύων, ασφάλειας και βάσεων δεδομένων,
-              σχεδιασμένα για φοιτητές και επαγγελματίες.
-            </p>
-            <a href="register.html" class="btn btn-primary">Ξεκίνα τώρα</a>
-          </div>
-          <div class="hero-image">
-            <img src="assets/img/banner.jpg"
-                 alt="Φοιτητές που παρακολουθούν μάθημα online">
-          </div>
+    <!-- Κατηγορίες -->
+    <section class="section-categories">
+      <div class="container">
+        <h2>Κατηγορίες Μαθημάτων</h2>
+        <div class="grid grid-3">
+          <article class="category-card">
+            <h3>Προγραμματισμός</h3>
+            <p>Μάθε Python, JavaScript, Java και άλλες σύγχρονες γλώσσες.</p>
+            <a href="courses.html" class="link-more">Δες τα μαθήματα</a>
+          </article>
+
+          <article class="category-card">
+            <h3>Δίκτυα</h3>
+            <p>Κατανόησε τα πρωτόκολλα, την ασφάλεια και τη διαχείριση δικτύων.</p>
+            <a href="courses.html" class="link-more">Δες τα μαθήματα</a>
+          </article>
+
+          <article class="category-card">
+            <h3>Βάσεις Δεδομένων</h3>
+            <p>SQL, μοντελοποίηση δεδομένων και βέλτιστες πρακτικές.</p>
+            <a href="courses.html" class="link-more">Δες τα μαθήματα</a>
+          </article>
         </div>
-      </section>
-
-      <!-- Κατηγορίες -->
-      <section class="section-categories">
-        <div class="container">
-          <h2>Κατηγορίες Μαθημάτων</h2>
-          <div class="grid grid-3">
-            <article class="category-card">
-              <h3>Προγραμματισμός</h3>
-              <p>Μάθε Python, JavaScript, Java και άλλες σύγχρονες γλώσσες.</p>
-              <a href="courses.html" class="link-more">Δες τα μαθήματα</a>
-            </article>
-
-            <article class="category-card">
-              <h3>Δίκτυα</h3>
-              <p>Κατανόησε τα πρωτόκολλα, την ασφάλεια και τη διαχείριση δικτύων.</p>
-              <a href="courses.html" class="link-more">Δες τα μαθήματα</a>
-            </article>
-
-            <article class="category-card">
-              <h3>Βάσεις Δεδομένων</h3>
-              <p>SQL, μοντελοποίηση δεδομένων και βέλτιστες πρακτικές.</p>
-              <a href="courses.html" class="link-more">Δες τα μαθήματα</a>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- Προτεινόμενα Μαθήματα (γεμίζουν δυναμικά με JS) -->
-      <section class="section-featured">
-        <div class="container">
-          <h2>Προτεινόμενα Μαθήματα</h2>
-          <div id="featured-courses" class="grid grid-3">
-            <!-- Θα γεμίσει δυναμικά από JS (courses.js + app.js) -->
-          </div>
-        </div>
-      </section>
-
-      <!-- Προτεινόμενα Βιβλία (δυναμικά) -->
-      <section class="section-featured">
-        <div class="container">
-          <h2>Προτεινόμενα Βιβλία</h2>
-          <div id="featured-books" class="grid grid-3">
-            <!-- Θα γεμίσει δυναμικά από JS (books.js + app.js) -->
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <p>&copy; 2025 E-Learning Platform. Όλα τα δικαιώματα διατηρούνται.</p>
-        <p>Επικοινωνία: <a href="mailto:info@elearning.example">info@elearning.example</a></p>
       </div>
-    </footer>
+    </section>
 
-    <script src="assets/js/data/courses.js"></script>
-    <script src="assets/js/data/books.js"></script>
-    <script src="assets/js/ui/menu.js"></script>
-    <script src="assets/js/forms/register-form.js"></script>
-    <script src="assets/js/app.js"></script>
-  </body>
+    <!-- Προτεινόμενα Μαθήματα (γεμίζουν δυναμικά με JS) -->
+    <section class="section-featured">
+      <div class="container">
+        <h2>Προτεινόμενα Μαθήματα</h2>
+        <div id="featured-courses" class="grid grid-3">
+          <!-- Θα γεμίσει δυναμικά από JS (courses.js + app.js) -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Προτεινόμενα Βιβλία (δυναμικά) -->
+    <section class="section-featured">
+      <div class="container">
+        <h2>Προτεινόμενα Βιβλία</h2>
+        <div id="featured-books" class="grid grid-3">
+          <!-- Θα γεμίσει δυναμικά από JS (books.js + app.js) -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2025 E-Learning Platform. Όλα τα δικαιώματα διατηρούνται.</p>
+      <p>Επικοινωνία: <a href="mailto:info@elearning.example">info@elearning.example</a></p>
+    </div>
+  </footer>
+
+  <script src="assets/js/data/courses.js"></script>
+  <script src="assets/js/data/books.js"></script>
+  <script src="assets/js/ui/menu.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/auth-check.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+
 </html>

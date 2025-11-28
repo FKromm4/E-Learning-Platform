@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Εγγραφή | E-Learning</title>
+    <meta name="description" content="Εγγραφείτε στην πλατφόρμα E-Learning και ξεκινήστε τη μάθηση σήμερα.">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+</head>
+
+<body data-page="register">
+    <!-- Header / Nav -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/img/logo.png" alt="E-Learning Logo">
+                <span class="logo-text">E-Learning</span>
+            </a>
+
+            <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">
+                ☰
+                <span class="visually-hidden">Άνοιγμα μενού</span>
+            </button>
+
+            <nav id="main-nav" class="main-nav" aria-label="Κύρια πλοήγηση">
+                <ul>
+                    <li><a href="index.html">Αρχική</a></li>
+                    <li><a href="courses.html">Μαθήματα</a></li>
+                    <li><a href="books.html">Βιβλία</a></li>
+                    <li><a href="about.html">Ποιοι είμαστε</a></li>
+                    <li><a href="login.html" class="btn btn-primary">Σύνδεση</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page Header -->
+        <section class="hero" style="padding: var(--space-12) 0;">
+            <div class="container" style="text-align: center;">
+                <h1>Εγγραφή</h1>
+                <p class="text-muted" style="font-size: var(--font-size-lg); max-width: 600px; margin: 0 auto;">
+                    Δημιουργήστε έναν λογαριασμό και αποκτήστε πρόσβαση σε όλα τα μαθήματα και το εκπαιδευτικό υλικό.
+                </p>
+            </div>
+        </section>
+
+        <!-- Registration Form -->
+        <section style="padding: var(--space-8) 0 var(--space-16) 0;">
+            <div class="container">
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <div class="card" style="padding: var(--space-8);">
+                        <form id="register-form">
+
+                            <!-- Name -->
+                            <div class="form-group">
+                                <label for="name" class="form-label">Ονοματεπώνυμο *</label>
+                                <input type="text" id="name" class="form-input" placeholder="π.χ. Γιάννης Παπαδόπουλος"
+                                    required>
+                                <div class="form-error"></div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" id="email" class="form-input" placeholder="π.χ. giannis@example.com"
+                                    required>
+                                <div class="form-error"></div>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="form-group">
+                                <label for="password" class="form-label">Κωδικός *</label>
+                                <input type="password" id="password" class="form-input"
+                                    placeholder="Τουλάχιστον 8 χαρακτήρες" required>
+                                <div class="password-strength-container">
+                                    <div class="password-strength-bar">
+                                        <div class="password-strength-fill" id="password-strength-fill"></div>
+                                    </div>
+                                    <span class="password-strength-text" id="password-strength-text"></span>
+                                </div>
+                                <div class="form-error"></div>
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div class="form-group">
+                                <label for="confirmPassword" class="form-label">Επιβεβαίωση Κωδικού *</label>
+                                <input type="password" id="confirmPassword" class="form-input"
+                                    placeholder="Επαναλάβετε τον κωδικό" required>
+                                <div class="form-error"></div>
+                            </div>
+
+                            <!-- Interests -->
+                            <div class="form-group">
+                                <label for="interests" class="form-label">Ενδιαφέροντα *</label>
+                                <select id="interests" class="form-select" required>
+                                    <option value="">Επιλέξτε κατηγορία</option>
+                                    <option value="programming">Προγραμματισμός</option>
+                                    <option value="networking">Δίκτυα</option>
+                                    <option value="databases">Βάσεις Δεδομένων</option>
+                                    <option value="security">Κυβερνοασφάλεια</option>
+                                    <option value="cloud">Cloud Computing</option>
+                                    <option value="ai">AI/ML</option>
+                                    <option value="devops">DevOps</option>
+                                </select>
+                                <div class="form-error"></div>
+                            </div>
+
+                            <!-- Terms -->
+                            <div class="form-group">
+                                <label style="display: flex; align-items: start; gap: var(--space-2); cursor: pointer;">
+                                    <input type="checkbox" required style="margin-top: 4px;">
+                                    <span class="text-muted" style="font-size: var(--font-size-sm);">
+                                        Συμφωνώ με τους <a href="#" style="color: var(--color-primary-light);">όρους
+                                            χρήσης</a>
+                                        και την <a href="#" style="color: var(--color-primary-light);">πολιτική
+                                            απορρήτου</a>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary"
+                                style="width: 100%; margin-top: var(--space-4);">
+                                Εγγραφή
+                            </button>
+
+                            <!-- Login Link -->
+                            <p style="text-align: center; margin-top: var(--space-6); color: var(--color-text-muted);">
+                                Έχετε ήδη λογαριασμό;
+                                <a href="login.html"
+                                    style="color: var(--color-primary-light); font-weight: var(--font-weight-semibold);">
+                                    Σύνδεση
+                                </a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>&copy; 2025 E-Learning Platform. Όλα τα δικαιώματα διατηρούνται.</p>
+            <p>Επικοινωνία: <a href="mailto:info@elearning.example">info@elearning.example</a></p>
+        </div>
+    </footer>
+
+    <script src="assets/js/data/courses.js"></script>
+    <script src="assets/js/data/books.js"></script>
+    <script src="assets/js/ui/menu.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/auth-check.js"></script>
+    <script src="assets/js/forms/register-form.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+
+</html>
