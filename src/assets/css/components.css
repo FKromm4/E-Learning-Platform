@@ -668,6 +668,7 @@
     }
 
     /* Breadcrumbs */
+
     .breadcrumbs {
         display: flex;
         align-items: center;
@@ -679,6 +680,7 @@
 
 
     /* Password Toggle Button */
+
     .password-toggle {
         position: absolute;
         right: var(--space-3);
@@ -705,6 +707,7 @@
     }
 
     /* User Dropdown Menu */
+
     .user-dropdown {
         position: relative;
         display: inline-block;
@@ -813,6 +816,7 @@
     }
 
     /* Payment Card Component */
+
     .payment-card {
         background: var(--gradient-surface);
         border: 1px solid rgba(255, 255, 255, 0.1);
