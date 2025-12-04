@@ -309,6 +309,7 @@
     gap: var(--space-4);
     flex-wrap: wrap;
     align-items: center;
+
 }
 
 .filter-group {
@@ -860,3 +861,21 @@
         color: var(--color-error) !important;
         transform: scale(1.1);
     }
+}
+
+.filter-group.search-group {
+    flex: 1 1 auto !important;
+    max-width: 700px;
+    min-width: 0;
+
+}
+
+.filter-group.search-group .form-input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#change-password-form .form-input {
+    width: 100%;
+    box-sizing: border-box;
+}

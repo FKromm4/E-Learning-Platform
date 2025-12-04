@@ -202,7 +202,7 @@ function renderCourses(courses, container) {
 
   container.innerHTML = courses.map(course => `
     <article class="course-card">
-      <img src="${course.image}" alt="${course.title}" class="course-card-image" onerror="this.src='assets/img/placeholder-course.jpg'">
+      <img src="${course.image}" alt="${course.title}" class="course-card-image">
       <div class="course-card-content">
         <h3 class="course-card-title">${course.title}</h3>
         <p class="course-card-description">${course.description}</p>
@@ -229,7 +229,7 @@ function renderBooks(books, container) {
 
   container.innerHTML = books.map(book => `
     <article class="book-card">
-      <img src="${book.image}" alt="${book.title}" class="book-card-image" onerror="this.src='assets/img/placeholder-book.jpg'">
+      <img src="${book.image}" alt="${book.title}" class="book-card-image">
       <div class="book-card-content">
         <h3 class="book-card-title">${book.title}</h3>
         <p class="course-card-description">${book.author}</p>
@@ -261,9 +261,6 @@ function renderDetailsPage(item, type) {
   if (itemImage) {
     itemImage.src = item.image;
     itemImage.alt = item.title;
-    itemImage.onerror = function () {
-      this.src = type === 'course' ? 'assets/img/placeholder-course.jpg' : 'assets/img/placeholder-book.jpg';
-    };
   }
   if (itemTitle) itemTitle.textContent = item.title;
 

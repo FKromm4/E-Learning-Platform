@@ -88,7 +88,7 @@ const coursesData = [
         level: 'Μεσαίο',
         students: 890,
         rating: 4.7,
-        image: 'assets/img/courses/java-programming.jpg',
+        image: 'assets/img/courses/java-programming.png',
         featured: false,
         topics: ['OOP', 'Collections', 'Multithreading', 'Spring Framework'],
         price: '69€'
@@ -103,7 +103,7 @@ const coursesData = [
         level: 'Μεσαίο',
         students: 540,
         rating: 4.8,
-        image: 'assets/img/courses/aws-cloud.jpg',
+        image: 'assets/img/courses/aws-cloud.png',
         featured: false,
         topics: ['EC2', 'S3', 'Lambda', 'RDS'],
         price: '89€'
@@ -118,7 +118,7 @@ const coursesData = [
         level: 'Προχωρημένο',
         students: 710,
         rating: 4.9,
-        image: 'assets/img/courses/machine-learning.jpg',
+        image: 'assets/img/courses/machine-learning.png',
         featured: false,
         topics: ['Supervised Learning', 'Unsupervised Learning', 'Neural Networks', 'Model Evaluation'],
         price: '129€'
@@ -133,7 +133,7 @@ const coursesData = [
         level: 'Προχωρημένο',
         students: 480,
         rating: 4.7,
-        image: 'assets/img/courses/docker-kubernetes.jpg',
+        image: 'assets/img/courses/docker-kubernetes.png',
         featured: false,
         topics: ['Docker Containers', 'Docker Compose', 'Kubernetes Clusters', 'Deployment Strategies'],
         price: '79€'
