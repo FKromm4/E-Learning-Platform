@@ -13,117 +13,118 @@
 </head>
 
 <body data-page="course-details">
-    <!-- Header / Nav -->
-    <header class="site-header">
-        <div class="container header-inner">
-            <a href="index.html" class="logo">
-                <img src="assets/img/logo.png" alt="E-Learning Logo">
-                <span class="logo-text">E-Learning</span>
-            </a>
+<!-- Header / Nav -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="logo">
+            <img src="assets/img/logo.png" alt="E-Learning Logo">
+            <span class="logo-text">E-Learning</span>
+        </a>
 
-            <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">
-                ☰
-                <span class="visually-hidden">Άνοιγμα μενού</span>
-            </button>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">
+            ☰
+            <span class="visually-hidden">Άνοιγμα μενού</span>
+        </button>
 
-            <nav id="main-nav" class="main-nav" aria-label="Κύρια πλοήγηση">
-                <ul>
-                    <li><a href="index.html">Αρχική</a></li>
-                    <li><a href="courses.html">Μαθήματα</a></li>
-                    <li><a href="books.html">Βιβλία</a></li>
-                    <li><a href="about.html">Ποιοι είμαστε</a></li>
-                    <li><a href="login.html" class="btn btn-primary">Σύνδεση</a></li>
-                </ul>
+        <nav id="main-nav" class="main-nav" aria-label="Κύρια πλοήγηση">
+            <ul>
+                <li><a href="index.html">Αρχική</a></li>
+                <li><a href="courses.html">Μαθήματα</a></li>
+                <li><a href="books.html">Βιβλία</a></li>
+                <li><a href="about.html">Ποιοι είμαστε</a></li>
+                <li><a href="login.html" class="btn btn-primary">Σύνδεση</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- Breadcrumbs -->
+    <section style="padding: var(--space-6) 0 0 0;">
+        <div class="container">
+            <nav class="breadcrumbs" aria-label="Breadcrumb">
+                <a href="index.html">Αρχική</a>
+                <span class="breadcrumbs-separator">/</span>
+                <a href="courses.html" id="breadcrumb-category">Μαθήματα</a>
+                <span class="breadcrumbs-separator">/</span>
+                <span id="breadcrumb-title">Λεπτομέρειες</span>
             </nav>
         </div>
-    </header>
+    </section>
 
-    <main>
-        <!-- Breadcrumbs -->
-        <section style="padding: var(--space-6) 0 0 0;">
-            <div class="container">
-                <nav class="breadcrumbs" aria-label="Breadcrumb">
-                    <a href="index.html">Αρχική</a>
-                    <span class="breadcrumbs-separator">/</span>
-                    <a href="courses.html" id="breadcrumb-category">Μαθήματα</a>
-                    <span class="breadcrumbs-separator">/</span>
-                    <span id="breadcrumb-title">Λεπτομέρειες</span>
-                </nav>
-            </div>
-        </section>
+    <!-- Details Content -->
+    <section style="padding: var(--space-8) 0 var(--space-16) 0;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr; gap: var(--space-12);">
 
-        <!-- Details Content -->
-        <section style="padding: var(--space-8) 0 var(--space-16) 0;">
-            <div class="container">
-                <div style="display: grid; grid-template-columns: 1fr; gap: var(--space-12);">
+                <!-- Main Content -->
+                <div>
+                    <!-- Hero Image/Video -->
+                    <div class="video-player" style="margin-bottom: var(--space-8);">
+                        <img id="item-image" src="" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
 
-                    <!-- Main Content -->
-                    <div>
-                        <!-- Hero Image/Video -->
-                        <div class="video-player" style="margin-bottom: var(--space-8);">
-                            <img id="item-image" src="" alt="" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
+                    <!-- Title & Meta -->
+                    <h1 id="item-title" style="margin-bottom: var(--space-4);">Τίτλος</h1>
 
-                        <!-- Title & Meta -->
-                        <h1 id="item-title" style="margin-bottom: var(--space-4);">Τίτλος</h1>
+                    <div id="item-meta" class="course-card-meta" style="margin-bottom: var(--space-6);">
+                        <!-- Populated by JavaScript -->
+                    </div>
 
-                        <div id="item-meta" class="course-card-meta" style="margin-bottom: var(--space-6);">
+                    <!-- Description -->
+                    <div
+                            style="background: var(--color-surface); padding: var(--space-6); border-radius: var(--radius-xl); margin-bottom: var(--space-8);">
+                        <h2 style="margin-bottom: var(--space-4);">Περιγραφή</h2>
+                        <p id="item-description" class="text-muted"
+                           style="line-height: var(--line-height-relaxed);">
                             <!-- Populated by JavaScript -->
-                        </div>
+                        </p>
+                    </div>
 
-                        <!-- Description -->
-                        <div
+                    <!-- Topics -->
+                    <div
                             style="background: var(--color-surface); padding: var(--space-6); border-radius: var(--radius-xl); margin-bottom: var(--space-8);">
-                            <h2 style="margin-bottom: var(--space-4);">Περιγραφή</h2>
-                            <p id="item-description" class="text-muted"
-                                style="line-height: var(--line-height-relaxed);">
-                                <!-- Populated by JavaScript -->
-                            </p>
-                        </div>
-
-                        <!-- Topics -->
-                        <div
-                            style="background: var(--color-surface); padding: var(--space-6); border-radius: var(--radius-xl); margin-bottom: var(--space-8);">
-                            <h2 style="margin-bottom: var(--space-4);">Θέματα που καλύπτονται</h2>
-                            <div id="item-topics" class="tags">
-                                <!-- Populated by JavaScript -->
-                            </div>
-                        </div>
-
-                        <!-- Info Grid -->
-                        <div
-                            style="background: var(--color-surface); padding: var(--space-6); border-radius: var(--radius-xl); margin-bottom: var(--space-8);">
-                            <h2 style="margin-bottom: var(--space-4);">Πληροφορίες</h2>
-                            <div id="item-info" class="info-grid">
-                                <!-- Populated by JavaScript -->
-                            </div>
-                        </div>
-
-                        <!-- CTA Buttons -->
-                        <div id="cta-buttons" style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
-                            <!-- Populated by JavaScript based on authentication state -->
+                        <h2 style="margin-bottom: var(--space-4);">Θέματα που καλύπτονται</h2>
+                        <div id="item-topics" class="tags">
+                            <!-- Populated by JavaScript -->
                         </div>
                     </div>
 
+                    <!-- Info Grid -->
+                    <div
+                            style="background: var(--color-surface); padding: var(--space-6); border-radius: var(--radius-xl); margin-bottom: var(--space-8);">
+                        <h2 style="margin-bottom: var(--space-4);">Πληροφορίες</h2>
+                        <div id="item-info" class="info-grid">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div id="cta-buttons" style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+                        <!-- Populated by JavaScript based on authentication state -->
+                    </div>
                 </div>
+
             </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="container footer-inner">
-            <p>&copy; 2025 E-Learning Platform. Όλα τα δικαιώματα διατηρούνται.</p>
-            <p>Επικοινωνία: <a href="mailto:info@elearning.example">info@elearning.example</a></p>
         </div>
-    </footer>
+    </section>
+</main>
 
-    <script src="assets/js/data/courses.js"></script>
-    <script src="assets/js/data/books.js"></script>
-    <script src="assets/js/ui/menu.js"></script>
-    <script src="assets/js/ui/notifications.js"></script>
-    <script src="assets/js/auth.js"></script>
-    <script src="assets/js/auth-check.js"></script>
-    <script src="assets/js/app.js"></script>
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <p>&copy; 2025 E-Learning Platform. Όλα τα δικαιώματα διατηρούνται.</p>
+        <p>Επικοινωνία: <a href="mailto:info@elearning.example">info@elearning.example</a></p>
+    </div>
+</footer>
+
+<script src="assets/js/data/courses.js"></script>
+<script src="assets/js/data/books.js"></script>
+<script src="assets/js/ui/menu.js"></script>
+<script src="assets/js/ui/notifications.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/favourites.js"></script>
+<script src="assets/js/auth-check.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 
 </html>

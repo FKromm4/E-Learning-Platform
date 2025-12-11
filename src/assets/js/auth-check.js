@@ -133,8 +133,8 @@ function handleUserMenuAction(action) {
             showNotification('Καλάθι (σύντομα)', 'info');
             break;
         case 'favorite':
-            // TODO: Navigate to favorites page
-            showNotification('Αγαπημένα (σύντομα)', 'info');
+            // Navigate to favorites page
+            window.location.href = 'favourites.html';
             break;
         case 'signout':
             handleLogout();

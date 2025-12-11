@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Βιβλία & Βίντεο | E-Learning</title>
-    <meta name="description" content="Εκπαιδευτικά βιβλία και βίντεο για προγραμματισμό, δίκτυα και βάσεις δεδομένων.">
+    <title>Αγαπημένα | E-Learning</title>
+    <meta name="description" content="Δείτε τα αγαπημένα σας μαθήματα και βιβλία.">
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/theme.css">
     <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/components.css">
 </head>
 
-<body data-page="books">
+<body data-page="favourites">
 <!-- Header / Nav -->
 <header class="site-header">
     <div class="container header-inner">
@@ -30,7 +30,7 @@
             <ul>
                 <li><a href="index.html">Αρχική</a></li>
                 <li><a href="courses.html">Μαθήματα</a></li>
-                <li><a href="books.html" class="active">Βιβλία</a></li>
+                <li><a href="books.html">Βιβλία</a></li>
                 <li><a href="about.html">Ποιοι είμαστε</a></li>
                 <li><a href="login.html" class="btn btn-primary">Σύνδεση</a></li>
             </ul>
@@ -41,46 +41,40 @@
 <main>
     <!-- Page Header -->
     <section class="hero" style="padding: var(--space-12) 0;">
-        <div class="container">
-            <h1>Βιβλία & Βίντεο</h1>
-            <p class="text-muted" style="font-size: var(--font-size-lg); max-width: 600px;">
-                Εκπαιδευτικό υλικό υψηλής ποιότητας για να συμπληρώσετε τη μάθησή σας.
+        <div class="container" style="text-align: center;">
+            <h1>❤️ Τα Αγαπημένα μου</h1>
+            <p class="text-muted" style="font-size: var(--font-size-lg); max-width: 600px; margin: 0 auto;">
+                Τα μαθήματα και τα βιβλία που έχετε αποθηκεύσει για αργότερα.
             </p>
         </div>
     </section>
 
-    <!-- Filters -->
-    <section style="padding: var(--space-8) 0;">
+    <!-- Filter Tabs -->
+    <section style="padding: var(--space-4) 0;">
         <div class="container">
-            <div class="filter-bar">
-                <div class="filter-group">
-                    <label for="category-filter" class="form-label">Κατηγορία</label>
-                    <select id="category-filter" class="form-select">
-                        <!-- Populated by JavaScript -->
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="type-filter" class="form-label">Τύπος</label>
-                    <select id="type-filter" class="form-select">
-                        <option value="all">Όλα</option>
-                        <option value="book">Βιβλία</option>
-                        <option value="video">Βίντεο</option>
-                    </select>
-                </div>
-                <div class="filter-group search-group">
-                    <label for="search-input" class="form-label">Αναζήτηση</label>
-                    <input type="text" id="search-input" class="form-input" placeholder="Αναζήτηση...">
-                </div>
+            <div class="favourites-filter">
+                <button class="filter-tab active" data-filter="all">
+                    Όλα
+                    <span class="filter-count" id="count-all">0</span>
+                </button>
+                <button class="filter-tab" data-filter="courses">
+                    Μαθήματα
+                    <span class="filter-count" id="count-courses">0</span>
+                </button>
+                <button class="filter-tab" data-filter="books">
+                    Βιβλία
+                    <span class="filter-count" id="count-books">0</span>
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- Books List -->
+    <!-- Favourites List -->
     <section style="padding: var(--space-8) 0 var(--space-16) 0;">
         <div class="container">
-            <div id="books-list" class="grid grid-3">
+            <div id="favourites-list" class="grid grid-3">
                 <!-- Populated by JavaScript -->
-                <div class="loading">Φόρτωση βιβλίων και βίντεο</div>
+                <div class="loading">Φόρτωση αγαπημένων</div>
             </div>
         </div>
     </section>
