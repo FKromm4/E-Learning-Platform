@@ -113,6 +113,39 @@ class AuthService {
     }
 
     /**
+     * Change user password
+     * @param {string} email 
+     * @param {string} currentPassword 
+     * @param {string} newPassword 
+     * @returns {Promise<Object>} Result { success, message }
+     */
+    async changePassword(email, currentPassword, newPassword) {
+        const users = this.getUsers();
+        const user = users[email];
+
+        if (!user) {
+            return { success: false, message: 'Ο χρήστης δεν βρέθηκε.' };
+        }
+
+        const currentPasswordHash = await this.hashPassword(currentPassword, user.salt);
+
+        if (currentPasswordHash !== user.passwordHash) {
+            return { success: false, message: 'Ο τρέχων κωδικός είναι λάθος.' };
+        }
+
+        const newSalt = this.generateSalt();
+        const newPasswordHash = await this.hashPassword(newPassword, newSalt);
+
+        user.salt = newSalt;
+        user.passwordHash = newPasswordHash;
+
+        users[email] = user;
+        this.saveUsers(users);
+
+        return { success: true, message: 'Ο κωδικός άλλαξε επιτυχώς!' };
+    }
+
+    /**
      * Set current logged in user
      * @param {Object} user 
      * @param {boolean} rememberMe Whether to use localStorage (persistent) or sessionStorage (session-only)

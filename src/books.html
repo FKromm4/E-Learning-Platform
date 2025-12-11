@@ -6,101 +6,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Βιβλία & Βίντεο | E-Learning</title>
     <meta name="description" content="Εκπαιδευτικά βιβλία και βίντεο για προγραμματισμό, δίκτυα και βάσεις δεδομένων.">
-    <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/theme.css">
     <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/components.css">
 </head>
 
 <body data-page="books">
-<!-- Header / Nav -->
-<header class="site-header">
-    <div class="container header-inner">
-        <a href="index.html" class="logo">
-            <img src="assets/img/logo.png" alt="E-Learning Logo">
-            <span class="logo-text">E-Learning</span>
-        </a>
+    <!-- Header / Nav -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/img/logo.png" alt="E-Learning Logo">
+                <span class="logo-text">E-Learning</span>
+            </a>
 
-        <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">
-            ☰
-            <span class="visually-hidden">Άνοιγμα μενού</span>
-        </button>
+            <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">
+                ☰
+                <span class="visually-hidden">Άνοιγμα μενού</span>
+            </button>
 
-        <nav id="main-nav" class="main-nav" aria-label="Κύρια πλοήγηση">
-            <ul>
-                <li><a href="index.html">Αρχική</a></li>
-                <li><a href="courses.html">Μαθήματα</a></li>
-                <li><a href="books.html" class="active">Βιβλία</a></li>
-                <li><a href="about.html">Ποιοι είμαστε</a></li>
-                <li><a href="login.html" class="btn btn-primary">Σύνδεση</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-<main>
-    <!-- Page Header -->
-    <section class="hero" style="padding: var(--space-12) 0;">
-        <div class="container">
-            <h1>Βιβλία & Βίντεο</h1>
-            <p class="text-muted" style="font-size: var(--font-size-lg); max-width: 600px;">
-                Εκπαιδευτικό υλικό υψηλής ποιότητας για να συμπληρώσετε τη μάθησή σας.
-            </p>
+            <nav id="main-nav" class="main-nav" aria-label="Κύρια πλοήγηση">
+                <ul>
+                    <li><a href="index.html">Αρχική</a></li>
+                    <li><a href="courses.html">Μαθήματα</a></li>
+                    <li><a href="books.html" class="active">Βιβλία</a></li>
+                    <li><a href="about.html">Ποιοι είμαστε</a></li>
+                    <li>
+                        <div class="cart-dropdown">
+                            <button id="cart-icon-btn" class="cart-icon-btn" aria-expanded="false"
+                                aria-label="Καλάθι αγορών">
+                                🛒
+                                <span id="cart-badge" class="cart-badge" hidden>0</span>
+                            </button>
+                            <div id="cart-dropdown-menu" class="cart-dropdown-menu" hidden>
+                                <div class="cart-header">
+                                    <h3>Καλάθι αγορών</h3>
+                                </div>
+                                <div id="cart-items-container" class="cart-items-container">
+                                    <!-- Cart items will be inserted here dynamically -->
+                                </div>
+                                <div class="cart-footer">
+                                    <button id="checkout-btn" class="btn btn-primary" style="width: 100%;">
+                                        Ολοκλήρωση αγοράς
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="login.html" class="btn btn-primary">Σύνδεση</a></li>
+                </ul>
+            </nav>
         </div>
-    </section>
+    </header>
 
-    <!-- Filters -->
-    <section style="padding: var(--space-8) 0;">
-        <div class="container">
-            <div class="filter-bar">
-                <div class="filter-group">
-                    <label for="category-filter" class="form-label">Κατηγορία</label>
-                    <select id="category-filter" class="form-select">
-                        <!-- Populated by JavaScript -->
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="type-filter" class="form-label">Τύπος</label>
-                    <select id="type-filter" class="form-select">
-                        <option value="all">Όλα</option>
-                        <option value="book">Βιβλία</option>
-                        <option value="video">Βίντεο</option>
-                    </select>
-                </div>
-                <div class="filter-group search-group">
-                    <label for="search-input" class="form-label">Αναζήτηση</label>
-                    <input type="text" id="search-input" class="form-input" placeholder="Αναζήτηση...">
+    <main>
+        <!-- Page Header -->
+        <section class="hero" style="padding: var(--space-12) 0;">
+            <div class="container">
+                <h1>Βιβλία & Βίντεο</h1>
+                <p class="text-muted" style="font-size: var(--font-size-lg); max-width: 600px;">
+                    Εκπαιδευτικό υλικό υψηλής ποιότητας για να συμπληρώσετε τη μάθησή σας.
+                </p>
+            </div>
+        </section>
+
+        <!-- Filters -->
+        <section style="padding: var(--space-8) 0;">
+            <div class="container">
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <label for="category-filter" class="form-label">Κατηγορία</label>
+                        <select id="category-filter" class="form-select">
+                            <!-- Populated by JavaScript -->
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="type-filter" class="form-label">Τύπος</label>
+                        <select id="type-filter" class="form-select">
+                            <option value="all">Όλα</option>
+                            <option value="book">Βιβλία</option>
+                            <option value="video">Βίντεο</option>
+                        </select>
+                    </div>
+                    <div class="filter-group search-group">
+                        <label for="search-input" class="form-label">Αναζήτηση</label>
+                        <input type="text" id="search-input" class="form-input" placeholder="Αναζήτηση...">
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Books List -->
-    <section style="padding: var(--space-8) 0 var(--space-16) 0;">
-        <div class="container">
-            <div id="books-list" class="grid grid-3">
-                <!-- Populated by JavaScript -->
-                <div class="loading">Φόρτωση βιβλίων και βίντεο</div>
+        <!-- Books List -->
+        <section style="padding: var(--space-8) 0 var(--space-16) 0;">
+            <div class="container">
+                <div id="books-list" class="grid grid-3">
+                    <!-- Populated by JavaScript -->
+                    <div class="loading">Φόρτωση βιβλίων και βίντεο</div>
+                </div>
             </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>&copy; 2025 E-Learning Platform. Όλα τα δικαιώματα διατηρούνται.</p>
+            <p>Επικοινωνία: <a href="mailto:info@elearning.example">info@elearning.example</a></p>
         </div>
-    </section>
-</main>
+    </footer>
 
-<footer class="site-footer">
-    <div class="container footer-inner">
-        <p>&copy; 2025 E-Learning Platform. Όλα τα δικαιώματα διατηρούνται.</p>
-        <p>Επικοινωνία: <a href="mailto:info@elearning.example">info@elearning.example</a></p>
-    </div>
-</footer>
-
-<script src="assets/js/data/courses.js"></script>
-<script src="assets/js/data/books.js"></script>
-<script src="assets/js/ui/menu.js"></script>
-<script src="assets/js/ui/notifications.js"></script>
-<script src="assets/js/auth.js"></script>
-<script src="assets/js/favourites.js"></script>
-<script src="assets/js/auth-check.js"></script>
-<script src="assets/js/app.js"></script>
+    <script src="assets/js/data/courses.js"></script>
+    <script src="assets/js/data/books.js"></script>
+    <script src="assets/js/ui/menu.js"></script>
+    <script src="assets/js/ui/notifications.js"></script>
+    <script src="assets/js/favourites.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/auth-check.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>

@@ -133,6 +133,9 @@ function updatePasswordStrength(password, containerId) {
  * Handle password change submission
  */
 function handlePasswordChange() {
+    const user = authService.getCurrentUser();
+    if (!user) return;
+
     const currentPassword = document.getElementById('current-password').value;
     const newPassword = document.getElementById('new-password').value;
     const confirmPassword = document.getElementById('confirm-password').value;
@@ -156,15 +159,23 @@ function handlePasswordChange() {
         return;
     }
 
-    // TODO: In a real application, verify current password with backend
-    // For now, we'll just simulate success
-
-    // Simulate API call
-    setTimeout(() => {
-        showNotification('Ο κωδικός σας άλλαξε με επιτυχία!', 'success');
-        document.getElementById('change-password-form').reset();
-        document.getElementById('new-password-strength').style.display = 'none';
-    }, 500);
+    // Verify current password with auth service
+    authService.changePassword(user.email, currentPassword, newPassword)
+        .then(result => {
+            if (result.success) {
+                showNotification(result.message, 'success');
+                document.getElementById('change-password-form').reset();
+                if (document.getElementById('new-password-strength')) {
+                    document.getElementById('new-password-strength').style.display = 'none';
+                }
+            } else {
+                showNotification(result.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Password change error:', error);
+            showNotification('Σφάλμα κατά την αλλαγή κωδικού.', 'error');
+        });
 }
 
 /**

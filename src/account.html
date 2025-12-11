@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Λογαριασμός | E-Learning</title>
     <meta name="description" content="Διαχείριση λογαριασμού και ρυθμίσεις.">
-    <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/theme.css">
     <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/components.css">
@@ -32,6 +31,27 @@
                     <li><a href="courses.html">Μαθήματα</a></li>
                     <li><a href="books.html">Βιβλία</a></li>
                     <li><a href="about.html">Ποιοι είμαστε</a></li>
+                    <li>
+                        <div class="cart-dropdown">
+                            <button id="cart-icon-btn" class="cart-icon-btn" aria-expanded="false"
+                                aria-label="Καλάθι αγορών">
+                                🛒<span id="cart-badge" class="cart-badge" hidden>0</span>
+                            </button>
+                            <div id="cart-dropdown-menu" class="cart-dropdown-menu" hidden>
+                                <div class="cart-header">
+                                    <h3>Καλάθι αγορών</h3>
+                                </div>
+                                <div id="cart-items-container" class="cart-items-container">
+                                    <!-- Cart items will be inserted here dynamically -->
+                                </div>
+                                <div class="cart-footer">
+                                    <button id="checkout-btn" class="btn btn-primary" style="width: 100%;">
+                                        Ολοκλήρωση αγοράς
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                     <li><a href="login.html" class="btn btn-primary">Σύνδεση</a></li>
                 </ul>
             </nav>
@@ -242,6 +262,7 @@
     <script src="assets/js/auth.js"></script>
     <script src="assets/js/auth-check.js"></script>
     <script src="assets/js/account.js"></script>
+    <script src="assets/js/cart.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 

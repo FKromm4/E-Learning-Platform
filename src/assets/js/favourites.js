@@ -162,4 +162,3 @@ class FavouritesService {
 
 // Export singleton instance
 const favouritesService = new FavouritesService();
-

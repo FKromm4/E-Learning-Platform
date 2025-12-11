@@ -50,10 +50,6 @@ function updateNavigation(isAuthenticated, user) {
                         <span class="dropdown-icon">👤</span>
                         <span>Λεπτομέρειες λογαριασμού</span>
                     </a>
-                    <a href="#" class="user-dropdown-item" data-action="bought">
-                        <span class="dropdown-icon">🛒</span>
-                        <span>Καλάθι</span>
-                    </a>
                     <a href="#" class="user-dropdown-item" data-action="favorite">
                         <span class="dropdown-icon">⭐</span>
                         <span>Αγαπημένα</span>
@@ -133,7 +129,6 @@ function handleUserMenuAction(action) {
             showNotification('Καλάθι (σύντομα)', 'info');
             break;
         case 'favorite':
-            // Navigate to favorites page
             window.location.href = 'favourites.html';
             break;
         case 'signout':
