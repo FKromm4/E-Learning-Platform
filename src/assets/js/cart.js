@@ -190,7 +190,11 @@ function renderCartDropdown() {
     const cart = getCart();
 
     if (cart.length === 0) {
-        container.innerHTML = '';
+        container.innerHTML = `
+            <div class="empty-state">
+                <p>Το καλάθι σας είναι άδειο</p>
+            </div>
+        `;
         return;
     }
 

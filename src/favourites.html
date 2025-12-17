@@ -13,88 +13,88 @@
 </head>
 
 <body data-page="favourites">
-<!-- Header / Nav -->
-<header class="site-header">
-    <div class="container header-inner">
-        <a href="index.html" class="logo">
-            <img src="assets/img/logo.png" alt="E-Learning Logo">
-            <span class="logo-text">E-Learning</span>
-        </a>
+    <!-- Header / Nav -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/img/logo.png" alt="E-Learning Logo">
+                <span class="logo-text">E-Learning</span>
+            </a>
 
-        <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">
-            ☰
-            <span class="visually-hidden">Άνοιγμα μενού</span>
-        </button>
+            <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">
+                ☰
+                <span class="visually-hidden">Άνοιγμα μενού</span>
+            </button>
 
-        <nav id="main-nav" class="main-nav" aria-label="Κύρια πλοήγηση">
-            <ul>
-                <li><a href="index.html">Αρχική</a></li>
-                <li><a href="courses.html">Μαθήματα</a></li>
-                <li><a href="books.html">Βιβλία</a></li>
-                <li><a href="about.html">Ποιοι είμαστε</a></li>
-                <li><a href="login.html" class="btn btn-primary">Σύνδεση</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-<main>
-    <!-- Page Header -->
-    <section class="hero" style="padding: var(--space-12) 0;">
-        <div class="container" style="text-align: center;">
-            <h1>❤️ Τα Αγαπημένα μου</h1>
-            <p class="text-muted" style="font-size: var(--font-size-lg); max-width: 600px; margin: 0 auto;">
-                Τα μαθήματα και τα βιβλία που έχετε αποθηκεύσει για αργότερα.
-            </p>
+            <nav id="main-nav" class="main-nav" aria-label="Κύρια πλοήγηση">
+                <ul>
+                    <li><a href="index.html">Αρχική</a></li>
+                    <li><a href="courses.html">Μαθήματα</a></li>
+                    <li><a href="books.html">Βιβλία</a></li>
+                    <li><a href="about.html">Ποιοι είμαστε</a></li>
+                    <li><a href="login.html" class="btn btn-primary">Σύνδεση</a></li>
+                </ul>
+            </nav>
         </div>
-    </section>
+    </header>
 
-    <!-- Filter Tabs -->
-    <section style="padding: var(--space-4) 0;">
-        <div class="container">
-            <div class="favourites-filter">
-                <button class="filter-tab active" data-filter="all">
-                    Όλα
-                    <span class="filter-count" id="count-all">0</span>
-                </button>
-                <button class="filter-tab" data-filter="courses">
-                    Μαθήματα
-                    <span class="filter-count" id="count-courses">0</span>
-                </button>
-                <button class="filter-tab" data-filter="books">
-                    Βιβλία
-                    <span class="filter-count" id="count-books">0</span>
-                </button>
+    <main>
+        <!-- Page Header -->
+        <section class="hero" style="padding: var(--space-12) 0;">
+            <div class="container" style="text-align: center;">
+                <h1>❤️ Τα Αγαπημένα μου</h1>
+                <p class="text-muted" style="font-size: var(--font-size-lg); max-width: 600px; margin: 0 auto;">
+                    Τα μαθήματα και τα βιβλία που έχετε αποθηκεύσει για αργότερα.
+                </p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Favourites List -->
-    <section style="padding: var(--space-8) 0 var(--space-16) 0;">
-        <div class="container">
-            <div id="favourites-list" class="grid grid-3">
-                <!-- Populated by JavaScript -->
-                <div class="loading">Φόρτωση αγαπημένων</div>
+        <!-- Filter Tabs -->
+        <section style="padding: var(--space-4) 0;">
+            <div class="container">
+                <div class="favourites-filter">
+                    <button class="filter-tab active" data-filter="all">
+                        Όλα
+                        <span class="filter-count" id="count-all">0</span>
+                    </button>
+                    <button class="filter-tab" data-filter="courses">
+                        Μαθήματα
+                        <span class="filter-count" id="count-courses">0</span>
+                    </button>
+                    <button class="filter-tab" data-filter="books">
+                        Βιβλία
+                        <span class="filter-count" id="count-books">0</span>
+                    </button>
+                </div>
             </div>
+        </section>
+
+        <!-- Favourites List -->
+        <section style="padding: var(--space-8) 0 var(--space-16) 0;">
+            <div class="container">
+                <div id="favourites-list" class="grid grid-3">
+                    <!-- Populated by JavaScript -->
+                    <div class="loading">Φόρτωση αγαπημένων</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>&copy; 2025 E-Learning Platform. Όλα τα δικαιώματα διατηρούνται.</p>
+            <p>Επικοινωνία: <a href="mailto:info@elearning.com">info@elearning.com</a></p>
         </div>
-    </section>
-</main>
+    </footer>
 
-<footer class="site-footer">
-    <div class="container footer-inner">
-        <p>&copy; 2025 E-Learning Platform. Όλα τα δικαιώματα διατηρούνται.</p>
-        <p>Επικοινωνία: <a href="mailto:info@elearning.example">info@elearning.example</a></p>
-    </div>
-</footer>
-
-<script src="assets/js/data/courses.js"></script>
-<script src="assets/js/data/books.js"></script>
-<script src="assets/js/ui/menu.js"></script>
-<script src="assets/js/ui/notifications.js"></script>
-<script src="assets/js/auth.js"></script>
-<script src="assets/js/favourites.js"></script>
-<script src="assets/js/auth-check.js"></script>
-<script src="assets/js/app.js"></script>
+    <script src="assets/js/data/courses.js"></script>
+    <script src="assets/js/data/books.js"></script>
+    <script src="assets/js/ui/menu.js"></script>
+    <script src="assets/js/ui/notifications.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/favourites.js"></script>
+    <script src="assets/js/auth-check.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>

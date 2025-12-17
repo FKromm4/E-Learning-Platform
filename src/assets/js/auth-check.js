@@ -34,8 +34,14 @@ function updateNavigation(isAuthenticated, user) {
     const navList = document.querySelector('.main-nav ul');
     if (!navList) return;
 
-    // Find the last li element (where auth controls live)
-    let authListItem = navList.querySelector('li:last-child');
+    // Find the auth nav item (using specific class for better positioning control)
+    let authListItem = navList.querySelector('.auth-nav-item');
+
+    // Fallback to last child only if specific class is not found (backward compatibility)
+    if (!authListItem) {
+        authListItem = navList.querySelector('li:last-child');
+    }
+
     if (!authListItem) return;
 
     if (isAuthenticated && user) {

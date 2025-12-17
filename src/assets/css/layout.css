@@ -25,32 +25,17 @@
     gap: var(--space-6);
 }
 
-/* Mobile First: 1 column for phones (default) */
-.grid-2,
-.grid-3,
+/* Responsive Grid System using auto-fit */
+.grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
+}
+
+.grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+
 .grid-4 {
-    grid-template-columns: 1fr;
-}
-
-/* Tablet: 2 columns (768px and up) */
-@media (min-width: 768px) {
-
-    .grid-2,
-    .grid-3,
-    .grid-4 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Desktop: 3 columns for grid-3, 4 columns for grid-4 (1024px and up) */
-@media (min-width: 1024px) {
-    .grid-3 {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .grid-4 {
-        grid-template-columns: repeat(4, 1fr);
-    }
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
 }
 
 /* Flexbox Utilities */
@@ -191,19 +176,37 @@
         padding: var(--space-6);
         transform: translateY(-100%);
         opacity: 0;
-        transition: transform var(--transition-base), opacity var(--transition-base);
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform var(--transition-base), opacity var(--transition-base), visibility var(--transition-base);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: var(--z-fixed);
     }
 
     .main-nav.active {
         transform: translateY(0);
         opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
     }
 
     .main-nav ul {
-        flex-direction: column;
-        align-items: stretch;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
         gap: var(--space-4);
+    }
+
+    .main-nav li {
+        width: 100%;
+    }
+
+    /* Auth item and Cart item (last-child) should be side-by-side and auto width */
+    .main-nav .auth-nav-item,
+    .main-nav li:last-child {
+        width: auto;
+        flex: 0 0 auto;
     }
 
     .main-nav a {
