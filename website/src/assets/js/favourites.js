@@ -1,72 +1,73 @@
 // ============================================
 // FAVOURITES.JS - Favourites Service
-// Manages user favourites using localStorage
+// Manages user favourites via backend API
 // ============================================
 
 class FavouritesService {
     constructor() {
-        this.storageKey = 'elearning_favourites';
+        this._cache = null;
+        this._cacheTime = null;
+        this._cacheDuration = 5000; // 5 seconds
     }
 
     /**
-     * Get the current user's email
-     * @returns {string|null}
+     * Check if user is authenticated
+     * @returns {boolean}
      */
-    getCurrentUserEmail() {
-        const user = authService.getCurrentUser();
-        return user ? user.email : null;
+    isAuthenticated() {
+        return typeof authService !== 'undefined' && authService.isAuthenticated();
     }
 
     /**
-     * Get all favourites from storage
-     * @returns {Object} Map of userEmail -> { courses: [], books: [] }
+     * Clear the favourites cache
      */
-    getAllFavourites() {
-        const data = localStorage.getItem(this.storageKey);
-        return data ? JSON.parse(data) : {};
+    clearCache() {
+        this._cache = null;
+        this._cacheTime = null;
     }
 
     /**
-     * Save all favourites to storage
-     * @param {Object} allFavourites
+     * Get favourites for current user from API
+     * @param {boolean} forceRefresh - Force refresh from API
+     * @returns {Promise<Object>} { courses: [], books: [] }
      */
-    saveAllFavourites(allFavourites) {
-        localStorage.setItem(this.storageKey, JSON.stringify(allFavourites));
-    }
+    async getFavourites(forceRefresh = false) {
+        if (!this.isAuthenticated()) {
+            return { courses: [], books: [] };
+        }
 
-    /**
-     * Get favourites for current user
-     * @returns {Object} { courses: [], books: [] }
-     */
-    getFavourites() {
-        const email = this.getCurrentUserEmail();
-        if (!email) return { courses: [], books: [] };
+        // Check cache
+        if (!forceRefresh && this._cache && this._cacheTime &&
+            (Date.now() - this._cacheTime) < this._cacheDuration) {
+            return this._cache;
+        }
 
-        const allFavourites = this.getAllFavourites();
-        return allFavourites[email] || { courses: [], books: [] };
+        const response = await api.get('/api/user/favourites', true);
+
+        if (response.success && response.data) {
+            this._cache = response.data;
+            this._cacheTime = Date.now();
+            return response.data;
+        }
+
+        return { courses: [], books: [] };
     }
 
     /**
      * Add item to favourites
-     * @param {number} itemId
+     * @param {string} itemId - MongoDB _id of the item
      * @param {string} itemType - 'course' or 'book'
-     * @returns {boolean} Success
+     * @returns {Promise<boolean>} Success
      */
-    addFavourite(itemId, itemType) {
-        const email = this.getCurrentUserEmail();
-        if (!email) return false;
+    async addFavourite(itemId, itemType) {
+        if (!this.isAuthenticated()) return false;
 
-        const allFavourites = this.getAllFavourites();
-        if (!allFavourites[email]) {
-            allFavourites[email] = { courses: [], books: [] };
-        }
+        // Backend expects singular type: 'course' or 'book'
+        const type = itemType === 'course' ? 'course' : 'book';
+        const response = await api.post(`/api/user/favourites/${type}/${itemId}`, {}, true);
 
-        const key = itemType === 'course' ? 'courses' : 'books';
-        const id = parseInt(itemId);
-
-        if (!allFavourites[email][key].includes(id)) {
-            allFavourites[email][key].push(id);
-            this.saveAllFavourites(allFavourites);
+        if (response.success) {
+            this.clearCache();
             return true;
         }
         return false;
@@ -74,24 +75,19 @@ class FavouritesService {
 
     /**
      * Remove item from favourites
-     * @param {number} itemId
+     * @param {string} itemId - MongoDB _id of the item
      * @param {string} itemType - 'course' or 'book'
-     * @returns {boolean} Success
+     * @returns {Promise<boolean>} Success
      */
-    removeFavourite(itemId, itemType) {
-        const email = this.getCurrentUserEmail();
-        if (!email) return false;
+    async removeFavourite(itemId, itemType) {
+        if (!this.isAuthenticated()) return false;
 
-        const allFavourites = this.getAllFavourites();
-        if (!allFavourites[email]) return false;
+        // Backend expects singular type: 'course' or 'book'
+        const type = itemType === 'course' ? 'course' : 'book';
+        const response = await api.delete(`/api/user/favourites/${type}/${itemId}`, true);
 
-        const key = itemType === 'course' ? 'courses' : 'books';
-        const id = parseInt(itemId);
-        const index = allFavourites[email][key].indexOf(id);
-
-        if (index > -1) {
-            allFavourites[email][key].splice(index, 1);
-            this.saveAllFavourites(allFavourites);
+        if (response.success) {
+            this.clearCache();
             return true;
         }
         return false;
@@ -99,64 +95,58 @@ class FavouritesService {
 
     /**
      * Check if item is in favourites
-     * @param {number} itemId
+     * @param {string} itemId - MongoDB _id of the item
      * @param {string} itemType - 'course' or 'book'
-     * @returns {boolean}
+     * @returns {Promise<boolean>}
      */
-    isFavourite(itemId, itemType) {
-        const favourites = this.getFavourites();
+    async isFavourite(itemId, itemType) {
+        const favourites = await this.getFavourites();
         const key = itemType === 'course' ? 'courses' : 'books';
-        const id = parseInt(itemId);
-        return favourites[key].includes(id);
+        return favourites[key].some(item => item._id === itemId);
     }
 
     /**
      * Toggle favourite state
-     * @param {number} itemId
+     * @param {string} itemId - MongoDB _id of the item
      * @param {string} itemType - 'course' or 'book'
-     * @returns {boolean} New state (true = favourited, false = unfavourited)
+     * @returns {Promise<boolean>} New state (true = favourited, false = unfavourited)
      */
-    toggleFavourite(itemId, itemType) {
-        if (this.isFavourite(itemId, itemType)) {
-            this.removeFavourite(itemId, itemType);
+    async toggleFavourite(itemId, itemType) {
+        const isFav = await this.isFavourite(itemId, itemType);
+
+        if (isFav) {
+            await this.removeFavourite(itemId, itemType);
             return false;
         } else {
-            this.addFavourite(itemId, itemType);
+            await this.addFavourite(itemId, itemType);
             return true;
         }
     }
 
     /**
      * Get favourite courses with full data
-     * @returns {Array} Array of course objects
+     * @returns {Promise<Array>} Array of course objects
      */
-    getFavouriteCourses() {
-        const favourites = this.getFavourites();
-        return favourites.courses
-            .map(id => getCourseById(id))
-            .filter(course => course !== undefined);
+    async getFavouriteCourses() {
+        const favourites = await this.getFavourites();
+        return favourites.courses || [];
     }
 
     /**
      * Get favourite books with full data
-     * @returns {Array} Array of book objects
+     * @returns {Promise<Array>} Array of book objects
      */
-    getFavouriteBooks() {
-        const favourites = this.getFavourites();
-        return favourites.books
-            .map(id => getBookById(id))
-            .filter(book => book !== undefined);
+    async getFavouriteBooks() {
+        const favourites = await this.getFavourites();
+        return favourites.books || [];
     }
 
     /**
      * Get all favourite items (courses and books)
-     * @returns {Object} { courses: [], books: [] }
+     * @returns {Promise<Object>} { courses: [], books: [] }
      */
-    getAllFavouriteItems() {
-        return {
-            courses: this.getFavouriteCourses(),
-            books: this.getFavouriteBooks()
-        };
+    async getAllFavouriteItems() {
+        return await this.getFavourites();
     }
 }
 

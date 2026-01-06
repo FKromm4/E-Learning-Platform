@@ -39,7 +39,8 @@ class SubscriptionService {
             allSubscriptions[email] = [];
         }
 
-        const id = parseInt(courseId);
+        // Keep as string since MongoDB _id is a string
+        const id = String(courseId);
 
         if (!allSubscriptions[email].includes(id)) {
             allSubscriptions[email].push(id);
@@ -56,7 +57,8 @@ class SubscriptionService {
         const allSubscriptions = this.getAllSubscriptions();
         if (!allSubscriptions[email]) return false;
 
-        const id = parseInt(courseId);
+        // Keep as string since MongoDB _id is a string
+        const id = String(courseId);
         const index = allSubscriptions[email].indexOf(id);
 
         if (index > -1) {
@@ -69,7 +71,8 @@ class SubscriptionService {
 
     isSubscribed(courseId) {
         const subscriptions = this.getSubscriptions();
-        const id = parseInt(courseId);
+        // Keep as string since MongoDB _id is a string
+        const id = String(courseId);
         return subscriptions.includes(id);
     }
 

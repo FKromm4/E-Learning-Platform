@@ -28,9 +28,9 @@ app.use(helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 
-// CORS configuration
+// CORS configuration - allow all origins in development
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://127.0.0.1:5500', 'http://localhost:5500'],
+    origin: true, // Allow all origins in development
     credentials: true
 }));
 
@@ -52,6 +52,25 @@ app.use('/api/media', mediaRoutes);
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', message: 'E-Learning API is running' });
 });
+
+// Root API info endpoint
+app.get('/api', (req, res) => {
+    res.json({
+        success: true,
+        message: 'E-Learning API',
+        version: '1.0.0',
+        endpoints: {
+            auth: '/api/auth',
+            courses: '/api/courses',
+            books: '/api/books',
+            user: '/api/user',
+            media: '/api/media'
+        }
+    });
+});
+
+// Prevent favicon 404 errors
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 // Error handling
 app.use(notFound);

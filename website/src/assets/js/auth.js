@@ -1,85 +1,29 @@
 /**
  * AUTH.JS - Authentication Service
- * Handles user registration, login, and session management using localStorage.
- * Uses SHA-256 for password hashing and random salts.
+ * Handles user registration, login, and session management via backend API.
  */
 
 class AuthService {
     constructor() {
-        this.usersKey = 'elearning_users';
         this.currentUserKey = 'elearning_current_user';
         this.rememberMeKey = 'elearning_remember_me';
     }
 
     /**
-     * Generate a random salt
-     * @returns {string} Hex string of salt
-     */
-    generateSalt() {
-        const array = new Uint8Array(16);
-        window.crypto.getRandomValues(array);
-        return Array.from(array).map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-
-    /**
-     * Hash password with salt using SHA-256
-     * @param {string} password 
-     * @param {string} salt 
-     * @returns {Promise<string>} Hex string of hash
-     */
-    async hashPassword(password, salt) {
-        const encoder = new TextEncoder();
-        const data = encoder.encode(password + salt);
-        const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-
-    /**
-     * Get all registered users
-     * @returns {Object} Map of email -> user object
-     */
-    getUsers() {
-        const usersJson = localStorage.getItem(this.usersKey);
-        return usersJson ? JSON.parse(usersJson) : {};
-    }
-
-    /**
-     * Save users to localStorage
-     * @param {Object} users 
-     */
-    saveUsers(users) {
-        localStorage.setItem(this.usersKey, JSON.stringify(users));
-    }
-
-    /**
      * Register a new user
      * @param {Object} userData { name, email, password, interests }
-     * @returns {Promise<Object>} Result { success, message }
+     * @returns {Promise<Object>} Result { success, message, data }
      */
     async register(userData) {
-        const users = this.getUsers();
+        const response = await api.post('/api/auth/register', userData);
 
-        if (users[userData.email]) {
-            return { success: false, message: 'Το email χρησιμοποιείται ήδη.' };
+        if (response.success && response.data) {
+            // Store token and user data
+            api.setToken(response.data.token, true);
+            this.setCurrentUser(response.data.user, true);
         }
 
-        const salt = this.generateSalt();
-        const hashedPassword = await this.hashPassword(userData.password, salt);
-
-        const newUser = {
-            name: userData.name,
-            email: userData.email,
-            interests: userData.interests,
-            salt: salt,
-            passwordHash: hashedPassword,
-            createdAt: new Date().toISOString()
-        };
-
-        users[userData.email] = newUser;
-        this.saveUsers(users);
-
-        return { success: true, message: 'Η εγγραφή ολοκληρώθηκε επιτυχώς! Παρακαλώ συνδεθείτε.' };
+        return response;
     }
 
     /**
@@ -87,62 +31,54 @@ class AuthService {
      * @param {string} email 
      * @param {string} password 
      * @param {boolean} rememberMe Whether to persist login across browser sessions
-     * @returns {Promise<Object>} Result { success, message, user }
+     * @returns {Promise<Object>} Result { success, message, data }
      */
     async login(email, password, rememberMe = false) {
-        const users = this.getUsers();
-        const user = users[email];
+        const response = await api.post('/api/auth/login', { email, password });
 
-        if (!user) {
-            return { success: false, message: 'Λάθος email ή κωδικός.' };
+        if (response.success && response.data) {
+            // Store token and user data
+            api.setToken(response.data.token, rememberMe);
+            this.setCurrentUser(response.data.user, rememberMe);
         }
 
-        const hashedPassword = await this.hashPassword(password, user.salt);
-
-        if (hashedPassword === user.passwordHash) {
-            const sessionUser = {
-                name: user.name,
-                email: user.email,
-                interests: user.interests
-            };
-            this.setCurrentUser(sessionUser, rememberMe);
-            return { success: true, user: sessionUser };
-        } else {
-            return { success: false, message: 'Λάθος email ή κωδικός.' };
-        }
+        return response;
     }
 
     /**
      * Change user password
-     * @param {string} email 
      * @param {string} currentPassword 
      * @param {string} newPassword 
      * @returns {Promise<Object>} Result { success, message }
      */
-    async changePassword(email, currentPassword, newPassword) {
-        const users = this.getUsers();
-        const user = users[email];
+    async changePassword(currentPassword, newPassword) {
+        return await api.put('/api/user/password', {
+            currentPassword,
+            newPassword
+        }, true);
+    }
 
-        if (!user) {
-            return { success: false, message: 'Ο χρήστης δεν βρέθηκε.' };
+    /**
+     * Validate current token with the server
+     * @returns {Promise<Object|null>} User data if valid, null if invalid
+     */
+    async validateToken() {
+        if (!api.hasToken()) {
+            return null;
         }
 
-        const currentPasswordHash = await this.hashPassword(currentPassword, user.salt);
+        const response = await api.get('/api/auth/me', true);
 
-        if (currentPasswordHash !== user.passwordHash) {
-            return { success: false, message: 'Ο τρέχων κωδικός είναι λάθος.' };
+        if (response.success && response.data) {
+            // Update stored user data
+            const rememberMe = localStorage.getItem(this.rememberMeKey) === 'true';
+            this.setCurrentUser(response.data.user, rememberMe);
+            return response.data.user;
         }
 
-        const newSalt = this.generateSalt();
-        const newPasswordHash = await this.hashPassword(newPassword, newSalt);
-
-        user.salt = newSalt;
-        user.passwordHash = newPasswordHash;
-
-        users[email] = user;
-        this.saveUsers(users);
-
-        return { success: true, message: 'Ο κωδικός άλλαξε επιτυχώς!' };
+        // Token is invalid - clear everything
+        this.logout();
+        return null;
     }
 
     /**
@@ -152,6 +88,10 @@ class AuthService {
      */
     setCurrentUser(user, rememberMe = false) {
         const storage = rememberMe ? localStorage : sessionStorage;
+        // Clear from both storages first
+        localStorage.removeItem(this.currentUserKey);
+        sessionStorage.removeItem(this.currentUserKey);
+        // Store in appropriate storage
         storage.setItem(this.currentUserKey, JSON.stringify(user));
         // Store the preference so we know where to look
         localStorage.setItem(this.rememberMeKey, rememberMe.toString());
@@ -180,9 +120,12 @@ class AuthService {
 
     /**
      * Logout user
-     * Clears both localStorage and sessionStorage
+     * Clears token and user data from all storages
      */
     logout() {
+        // Clear token
+        api.clearToken();
+        // Clear user data
         localStorage.removeItem(this.currentUserKey);
         sessionStorage.removeItem(this.currentUserKey);
         localStorage.removeItem(this.rememberMeKey);
@@ -193,7 +136,7 @@ class AuthService {
      * @returns {boolean}
      */
     isAuthenticated() {
-        return !!this.getCurrentUser();
+        return api.hasToken() && !!this.getCurrentUser();
     }
 }
 

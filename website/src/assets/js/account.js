@@ -213,14 +213,17 @@ function setupCardEventListeners() {
 }
 
 /**
- * Load saved payment cards
+ * Load saved payment cards from API
  */
-function loadSavedCards() {
+async function loadSavedCards() {
     const container = document.getElementById('saved-cards-container');
     if (!container) return;
 
-    // Get saved cards from localStorage
-    const savedCards = getStoredCards();
+    container.innerHTML = '<div class="loading">Φόρτωση καρτών...</div>';
+
+    // Fetch cards from API
+    const response = await api.get('/api/user/payment-methods', true);
+    const savedCards = response.success && response.data ? response.data : [];
 
     if (savedCards.length === 0) {
         container.innerHTML = `
@@ -240,8 +243,8 @@ function loadSavedCards() {
  * Render a single payment card
  */
 function renderCard(card) {
-    const cardBrand = getCardBrand(card.number);
-    const cardIcon = cardBrand === 'Visa' ? '💳' : cardBrand === 'Mastercard' ? '💳' : '💳';
+    const cardBrand = card.cardType || 'Κάρτα';
+    const cardIcon = '💳';
 
     return `
         <div class="saved-card" style="background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); margin-bottom: var(--space-3);">
@@ -261,12 +264,12 @@ function renderCard(card) {
                         ⭐ Προεπιλεγμένη
                     </span>
                 ` : `
-                    <button class="set-default-btn btn btn-secondary" data-card-id="${card.id}"
+                    <button class="set-default-btn btn btn-secondary" data-card-id="${card._id}"
                         style="padding: var(--space-2) var(--space-3); font-size: var(--font-size-sm); white-space: nowrap;">
                         Ορισμός προεπιλεγμένης
                     </button>
                 `}
-                <button class="remove-card-btn" data-card-id="${card.id}"
+                <button class="remove-card-btn" data-card-id="${card._id}"
                     style="background: none; border: none; color: var(--color-text-muted); cursor: pointer; padding: var(--space-2); font-size: 20px; transition: color var(--transition-fast);"
                     title="Αφαίρεση κάρτας">
                     🗑️
@@ -338,16 +341,16 @@ function initAddCardForm() {
     });
 
     // Handle form submission
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
         e.preventDefault();
-        handleAddCard();
+        await handleAddCard();
     });
 }
 
 /**
  * Handle add card submission
  */
-function handleAddCard() {
+async function handleAddCard() {
     const cardNumber = document.getElementById('card-number').value.replace(/\s/g, '');
     const holderName = document.getElementById('card-holder').value.trim();
     const expiry = document.getElementById('card-expiry').value;
@@ -394,45 +397,30 @@ function handleAddCard() {
         return;
     }
 
-    // Create card object
+    // Create card object for API
     const newCard = {
-        id: Date.now().toString(),
-        number: cardNumber,
+        cardType: getCardBrand(cardNumber),
         lastFour: cardNumber.slice(-4),
         holderName: holderName.toUpperCase(),
-        expiry: expiry,
-        isDefault: getStoredCards().length === 0 // First card is default
+        expiry: expiry
     };
 
-    // Save card
-    saveCard(newCard);
+    // Save card via API
+    const response = await api.post('/api/user/payment-methods', newCard, true);
 
-    // Show success message
-    showNotification('Η κάρτα προστέθηκε με επιτυχία!', 'success');
-
-    // Reset form and reload cards
-    document.getElementById('add-card-form').reset();
-    document.getElementById('add-card-form-container').style.display = 'none';
-    document.getElementById('add-card-btn').style.display = 'flex';
-    loadSavedCards();
+    if (response.success) {
+        showNotification('Η κάρτα προστέθηκε με επιτυχία!', 'success');
+        // Reset form and reload cards
+        document.getElementById('add-card-form').reset();
+        document.getElementById('add-card-form-container').style.display = 'none';
+        document.getElementById('add-card-btn').style.display = 'flex';
+        await loadSavedCards();
+    } else {
+        showNotification(response.message || 'Σφάλμα κατά την αποθήκευση', 'error');
+    }
 }
 
-/**
- * Get stored cards from localStorage
- */
-function getStoredCards() {
-    const cards = localStorage.getItem('payment_cards');
-    return cards ? JSON.parse(cards) : [];
-}
-
-/**
- * Save card to localStorage
- */
-function saveCard(card) {
-    const cards = getStoredCards();
-    cards.push(card);
-    localStorage.setItem('payment_cards', JSON.stringify(cards));
-}
+// Note: getStoredCards and saveCard are no longer needed as we use API
 
 /**
  * Show field error
@@ -469,47 +457,38 @@ function clearFormErrors(formId) {
 }
 
 /**
- * Remove card from localStorage
+ * Remove card via API
  */
 function removeCard(cardId) {
     // Show custom confirmation modal
     showConfirmModal(
         'Αφαίρεση Κάρτας',
         'Είστε σίγουροι ότι θέλετε να αφαιρέσετε αυτή την κάρτα πληρωμής;',
-        () => {
-            let cards = getStoredCards();
-            const cardToRemove = cards.find(card => card.id === cardId);
+        async () => {
+            const response = await api.delete(`/api/user/payment-methods/${cardId}`, true);
 
-            if (!cardToRemove) return;
-
-            cards = cards.filter(card => card.id !== cardId);
-
-            if (cardToRemove.isDefault && cards.length > 0) {
-                cards[0].isDefault = true;
+            if (response.success) {
+                showNotification('Η κάρτα αφαιρέθηκε με επιτυχία', 'success');
+                await loadSavedCards();
+            } else {
+                showNotification(response.message || 'Σφάλμα κατά την αφαίρεση', 'error');
             }
-
-            localStorage.setItem('payment_cards', JSON.stringify(cards));
-            showNotification('Η κάρτα αφαιρέθηκε με επιτυχία', 'success');
-            loadSavedCards();
         }
     );
 }
 
 /**
- * Set a card as default
+ * Set a card as default via API
  */
-function setDefaultCard(cardId) {
-    const cards = getStoredCards();
+async function setDefaultCard(cardId) {
+    const response = await api.put(`/api/user/payment-methods/${cardId}/default`, {}, true);
 
-    // Update all cards: set the selected one as default, others as non-default
-    const updatedCards = cards.map(card => ({
-        ...card,
-        isDefault: card.id === cardId
-    }));
-
-    localStorage.setItem('payment_cards', JSON.stringify(updatedCards));
-    showNotification('Η προεπιλεγμένη κάρτα ενημερώθηκε!', 'success');
-    loadSavedCards();
+    if (response.success) {
+        showNotification('Η προεπιλεγμένη κάρτα ενημερώθηκε!', 'success');
+        await loadSavedCards();
+    } else {
+        showNotification(response.message || 'Σφάλμα κατά την ενημέρωση', 'error');
+    }
 }
 
 /**

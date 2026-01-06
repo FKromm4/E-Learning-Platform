@@ -49,17 +49,19 @@ function savePurchasedBooks(purchased) {
 // Check if a book is already purchased
 function isPurchased(bookId) {
     const purchased = getPurchasedBooks();
-    return purchased.includes(parseInt(bookId));
+    // Use String since MongoDB _id is a string
+    return purchased.includes(String(bookId));
 }
 
 // Check if a book is in the cart
 function isInCart(bookId) {
     const cart = getCart();
-    return cart.some(item => item.id === parseInt(bookId));
+    // Use String since MongoDB _id is a string
+    return cart.some(item => item.id === String(bookId));
 }
 
 // Add book to cart
-function addToCart(bookId) {
+async function addToCart(bookId) {
     // Check if already purchased
     if (isPurchased(bookId)) {
         showNotification('Έχετε ήδη αγοράσει αυτό το βιβλίο', 'info');
@@ -72,17 +74,18 @@ function addToCart(bookId) {
         return false;
     }
 
-    // Get book details
-    const book = getBookById(bookId);
-    if (!book) {
+    // Fetch book details from API
+    const response = await api.get(`/api/books/${bookId}`);
+    if (!response.success || !response.data) {
         showNotification('Το βιβλίο δεν βρέθηκε', 'error');
         return false;
     }
+    const book = response.data;
 
-    // Add to cart
+    // Add to cart using string ID
     const cart = getCart();
     cart.push({
-        id: book.id,
+        id: String(book._id),
         title: book.title,
         author: book.author,
         price: book.price,
@@ -102,7 +105,8 @@ function addToCart(bookId) {
 // Remove book from cart
 function removeFromCart(bookId) {
     let cart = getCart();
-    cart = cart.filter(item => item.id !== parseInt(bookId));
+    // Use String since MongoDB _id is a string
+    cart = cart.filter(item => item.id !== String(bookId));
     saveCart(cart);
 
     // Update UI
