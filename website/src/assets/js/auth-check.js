@@ -130,10 +130,7 @@ function handleUserMenuAction(action) {
             // Navigate to account details page
             window.location.href = 'account.html';
             break;
-        case 'bought':
-            // TODO: Navigate to cart page
-            showNotification('Καλάθι (σύντομα)', 'info');
-            break;
+
         case 'favorite':
             window.location.href = 'favourites.html';
             break;
@@ -171,12 +168,9 @@ function updateProtectedContent(isAuthenticated) {
  * Handle user logout
  */
 function handleLogout() {
-    console.log('Logout initiated');
-
     // Logout immediately without confirmation for now
     try {
         authService.logout();
-        console.log('Logout successful, storage cleared');
 
         // Force reload to update UI
         window.location.reload(true);
