@@ -129,11 +129,7 @@ npm run dev
 Server URL: **http://localhost:5000**
 
 ### 3. Εκκίνηση Client
-```bash
-cd client
-npx serve src
-```
-Client URL: **http://localhost:3000**
+Ανοίξτε το αρχείο `client/src/index.html` στον browser.
 
 ---
 

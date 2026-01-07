@@ -8,22 +8,9 @@
 
 ## Εγκατάσταση & Εκκίνηση
 
-### Μέθοδος 1: Απευθείας Άνοιγμα
-
 Ανοίξτε το αρχείο `client/src/index.html` απευθείας στον browser.
 
-> ⚠️ Ορισμένες λειτουργίες (CORS) μπορεί να μη δουλεύουν σωστά χωρίς HTTP server.
-
-### Μέθοδος 2: Με HTTP Server
-
-```bash
-cd client
-
-# Χρήση npx serve
-npx serve src
-
-# Ή με Python
-python -m http.server 8080 --directory src
+---
 
 
 ## Σύνδεση με το Backend
